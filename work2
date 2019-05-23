@@ -36,12 +36,20 @@ class Friends:
         "name_case": ""
       }
       response = requests.get("https://api.vk.com/method/friends.get", params_2)
+      
       friend_list = response.json()
       print(friend_list)
       tems = friend_list["response"]["items"]
       for elements in tems:
+      
         friend_list_2 = elements["id"]
-
+          params_3 = {
+        "access_token": token,
+        "v": 5.92,
+        "user_ids": friend_list_2,
+        "need_sign": ""
+        }
+      response3 = requests.get("https://api.vk.com/method/friends.areFriends", params)
       params = self.get_params()
       response1 = requests.get("https://api.vk.com/method/friends.getMutual", params)
       return response.json()
