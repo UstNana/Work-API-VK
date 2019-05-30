@@ -13,7 +13,7 @@ auth_data = {
   "v": 5.92
 }
 print("?".join((OAUTH_URL, urlencode(auth_data))))
-token = "43a8b030ded1caf7a5db0e0bbf4511afab1490929f62ff2139afd9790fa5f47bfb08c7920133f9a9d0a08"
+token = "c2423cd90573c404e02b1aef6f5db1bfba68c0e3195f547a06502e399f8310b596e44fb2dd11f71d06b03"
 
 class Friends:
   def __init__(self, access_token):
@@ -36,22 +36,20 @@ class Friends:
         "name_case": ""
       }
       response = requests.get("https://api.vk.com/method/friends.get", params_2)
-      
       friend_list = response.json()
       print(friend_list)
       tems = friend_list["response"]["items"]
       for elements in tems:
-      
         friend_list_2 = elements["id"]
-          params_3 = {
+        params_3 = {
         "access_token": token,
         "v": 5.92,
-        "user_ids": friend_list_2,
-        "need_sign": ""
+        "source_uid": friend_list_2,
+        "target_uid": "",
+        "count": ""
         }
-      response3 = requests.get("https://api.vk.com/method/friends.areFriends", params)
       params = self.get_params()
-      response1 = requests.get("https://api.vk.com/method/friends.getMutual", params)
+      response1 = requests.get("https://api.vk.com/method/friends.getMutual", params_3)
       return response.json()
       return response1.json()
 
@@ -102,9 +100,7 @@ class Friends:
 
 
 
-user1 = Friends(token)
-user2 = Friends(token)
+User1 = Friends(token)
+User2 = Friends(token)
 
-print(user1.__and__(user2))
-#print(user2.get_friends_name())
-
+print(User1 & User2)
