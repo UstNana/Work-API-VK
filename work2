@@ -4,6 +4,7 @@ import pprint
 
 OAUTH_URL = "https://oauth.vk.com/authorize"
 APP_ID_1 = 6892877
+APP_ID_2 = 6892877
 
 auth_data = {
   "client_id": APP_ID_1,
@@ -50,8 +51,7 @@ class Friends:
         }
       params = self.get_params()
       response1 = requests.get("https://api.vk.com/method/friends.getMutual", params_3)
-      return response.json()
-      return response1.json()
+      return response.json(), response1.json()
 
 
   def get_params(self):
@@ -100,7 +100,7 @@ class Friends:
 
 
 
-User1 = Friends(token)
-User2 = Friends(token)
+User1 = Friends(token, APP_ID_1)
+User2 = Friends(token, APP_ID_2)
 
 print(User1 & User2)
